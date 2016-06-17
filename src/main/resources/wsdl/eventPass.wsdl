@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xay.jammazwan/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	name="XayServiceService" targetNamespace="http://xay.jammazwan/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://xay.jammazwan/" elementFormDefault="unqualified"
+			targetNamespace="http://xay.jammazwan/" version="1.0">
+
+			<xs:element name="getPass" type="tns:getPass" />
+
+			<xs:element name="getPassResponse" type="tns:getPassResponse" />
+
+			<xs:complexType name="getPass">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="arg0" type="tns:company" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="company">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="companyName" type="xs:string" />
+					<xs:element name="contacts" type="xs:int" />
+					<xs:element name="rank" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="getPassResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="return" type="tns:corporateEventPass" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="corporateEventPass">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="color" type="xs:string" />
+					<xs:element name="fee" type="xs:int" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+					<xs:element name="seats" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getPass">
+		<wsdl:part element="tns:getPass" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getPassResponse">
+		<wsdl:part element="tns:getPassResponse" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="XayService">
+		<wsdl:operation name="getPass">
+			<wsdl:input message="tns:getPass" name="getPass">
+			</wsdl:input>
+			<wsdl:output message="tns:getPassResponse" name="getPassResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="XayServiceServiceSoapBinding" type="tns:XayService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getPass">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="getPass">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="getPassResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="XayServiceService">
+		<wsdl:port binding="tns:XayServiceServiceSoapBinding" name="XayServicePort">
+			<soap:address location="http://localhost:9874/eventPass/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
